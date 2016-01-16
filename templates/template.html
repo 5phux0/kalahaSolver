@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kalaha Solver</title>
+<meta name="sessionToken" value="{{.}}">
+<script src="file/jquery-2.2.0.min.js"></script>
+<script src="file/script.js"></script>
+<link rel="stylesheet" type="text/css" href="file/page.css">
+</head>
+<body>
+<h1>KalahaSolver.com</h1>
+<div class="board">
+<table class="row hole-row" id="orow">
+<tr>
+	<!--Holes go here-->
+</tr>
+</table>
+
+<table class="row">
+	<tr><td>
+		<input type="text" class="home left" id="ohome" onblur="validateHole(event)">
+    	<input type="text" class="home right" id="phome" onblur="validateHole(event)">
+	</td></tr>
+</table>
+
+<table class="row hole-row" id="prow">
+<tr>
+	<!--Holes go here-->
+</tr>
+</table>
+</div>
+<table class="controlls-container"><tr>
+<td class="edit-controlls">
+<input id="toggleEditingButton" type="button" class="button" onclick="toggleEditing()" value="Lock"></input><br>
+<div class="controlls-row">Number of holes: <input class="edit-controll number" id="numberOfHoles" type="number" onchange="nHolesChanged(event)"></input></div>
+<div class="controlls-row">Number of stones: <input class="edit-controll number" id="numberOfStones" type="number" onchange="nStonesChanged(event)"></input></div>
+Turn Holder: <br>
+<input class="edit-controll" type="radio" name="turnHolder" value="true" id="r-orange"><label for="r-orange"> Orange</label><br>
+<input class="edit-controll" type="radio" name="turnHolder" value="false" id="r-teal"><label for="r-teal"> Teal</label><br>
+<input id="htwButton" type="button" class="button" onclick="getWinPath()" value="Solve"></input>
+<img class="loading-indicator" src="file/loading.gif">
+</td>
+<td class="history-view">
+</td>
+</tr></table>
+
+<table class="instructions"><tr>
+<td>
+<h2>Instructions</h2>
+<ul>
+<li>Edit the board with the controlls or by clicking individual holes.</li><br>
+<li>Press "Lock" to stop editing and play from the current board state.</li><br>
+<li>Click anywhere on the board to speed up a move in progress.</li><br>
+<li>Press "Solve" to send a request to the server to find a series of moves that result in a guaranteed victory for the player holding the turn.</li><br>
+<li>The move list shows moves made since the board was locked. Click an item to revert the board to that state.</li><br>
+</ul>
+</td>
+<td>
+<h2>Rules</h2>
+<ul>
+<li>The board consists of an orange and a teal side each belonging to it’s respective player. Each side consists of a number of holes each containing a number of stones. Each player also has a home, orange to the right and teal to the left.</li><br>
+<li>The turn holder makes a move by taking all the stones from a hole that is not empty and on his side of the board. The player then moves counterclockwise around the board dropping one stone in each hole that is passed. A stone is also dropped in the players own home when it is passed. When the players hand is empty, if the last hole that had a stone dropped in it was empty the turn is passed to the other player. If it was the players home, the the turn is retained and the player makes a new move. Otherwise, the stones are taken out of that hole and the player keeps moving around the board.</li><br>
+<li>The game ends when at the end of a turn if all of the holes on one players side of the board are empty. That player takes all of the stones that are remaining from the other side of the board and place them in his home. The player that then has the highest number of stones is his home is the winner.</li><br>
+</ul>
+</td>
+</tr></table>
+
+</body>
